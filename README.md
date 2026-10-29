@@ -1,12 +1,12 @@
 # OpenInstaller
 
-A clean-room, open-source native C++ recreation of the official client installer (`installer.exe`).
+A clean-room, open-source native C++ recreation of the official client installer (`RobloxPlayerInstaller.exe`).
 
 ---
 
 ## Technical Overview
 
-The original `installer.exe` binary is a 64-bit Windows PE GUI application containing approximately 10 MB of compiled machine code (`.text` section) that communicates with content distribution endpoints to download and bootstrap client files.
+The original `RobloxPlayerInstaller.exe` binary is a 64-bit Windows PE GUI application containing approximately 10 MB of compiled machine code (`.text` section) that communicates with content distribution endpoints to download and bootstrap client files.
 
 This project recreates the exact installation pipeline in modular C++17 without proprietary dependencies.
 
@@ -19,16 +19,17 @@ flowchart TD
     B -- "Yes" --> F["Locate RobloxPlayerBeta.exe"]
     E --> F
     F --> G["Spawn Process with CLI Arguments"]
+
 ```
 
 ---
 
 ## Extracted Package Extraction Map
 
-The exact 22 archive packages and their target subdirectories extracted from `installer.exe`:
+The exact 22 archive packages and their target subdirectories extracted from `RobloxPlayerInstaller.exe`:
 
 | Package Name | Relative Target Directory |
-| :--- | :--- |
+| --- | --- |
 | `RobloxApp.zip` | Root (`.`) |
 | `content-avatar.zip` | `content/avatar/` |
 | `content-configs.zip` | `content/configs/` |
@@ -57,25 +58,30 @@ The exact 22 archive packages and their target subdirectories extracted from `in
 ## Building
 
 ### Requirements
+
 * C++17 compatible compiler (`g++`, `clang++`, or `MSVC`)
 * `CMake` (3.16+)
 * `libcurl`
 * `libzip`
 
 ### Linux Build
+
 ```bash
 cd /home/pent/Desktop/open-installer
 mkdir build && cd build
 cmake ..
 make -j$(nproc)
+
 ```
 
 ### Windows Build (Visual Studio / CMake)
+
 ```cmd
 mkdir build
 cd build
 cmake .. -G "Visual Studio 17 2022" -A x64
 cmake --build . --config Release
+
 ```
 
 ---
@@ -94,4 +100,5 @@ cmake --build . --config Release
 
 # Pass arguments directly to the client
 ./build/installer -- --app -t <token>
+
 ```
