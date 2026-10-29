@@ -102,3 +102,8 @@ cmake --build . --config Release
 ./build/installer -- --app -t <token>
 
 ```
+---
+
+## Feedback & Issues
+
+If you find any issues, please let me know or open an issue!
